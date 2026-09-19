@@ -1,0 +1,49 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Login from "./pages/Login";
+import EmployeeDashboard from "./pages/EmployeeDashboard";
+import ManagerDashboard from "./pages/ManagerDashboard";
+import Register from "./pages/Register";
+
+function App() {
+
+  const token = localStorage.getItem("token");
+
+  return (
+    <BrowserRouter>
+
+      <Routes>
+
+        <Route path="/" element={<Login />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+
+        {
+          token && (
+            <>
+              <Route
+                path="/employee"
+                element={
+                  <EmployeeDashboard />
+                }
+              />
+
+              
+
+              <Route
+                path="/manager"
+                element={
+                  <ManagerDashboard />
+                }
+              />
+            </>
+          )
+        }
+
+      </Routes>
+
+    </BrowserRouter>
+  );
+}
+
+export default App;

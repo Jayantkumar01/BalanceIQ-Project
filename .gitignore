@@ -1,0 +1,5 @@
+target/
+*.jar
+.env
+.idea/
+balanceiq-frontend/balanceiq-frontend/.vite/

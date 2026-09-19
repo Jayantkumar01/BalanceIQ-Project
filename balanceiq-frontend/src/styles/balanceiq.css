@@ -1,0 +1,823 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600&family=Inter:wght@300;400;500;600&display=swap');
+
+/* ── Design Tokens ─────────────────────────────────────── */
+:root {
+  --green-900: #0D2B1E;
+  --green-800: #1B3A2D;
+  --green-700: #2A5040;
+  --green-600: #3A6B52;
+  --green-500: #4A7C59;
+  --green-400: #6A9E79;
+  --green-200: #B8D9C4;
+  --green-100: #D8EDE2;
+  --green-50:  #EEF7F2;
+
+  --cream-50:  #FDFCF8;
+  --cream-100: #F7F5F0;
+  --cream-200: #EDE9DF;
+
+  --coral-500: #E8705A;
+  --coral-100: #FAEAE7;
+
+  --amber-500: #F0A830;
+  --amber-100: #FEF3DC;
+
+  --sky-500:   #5B9EC9;
+  --sky-100:   #E0EFF8;
+
+  --text-primary:   #1A2E24;
+  --text-secondary: #4A6558;
+  --text-muted:     #7A9A8A;
+  --text-inverse:   #FFFFFF;
+
+  --border-subtle:  rgba(42, 80, 64, 0.10);
+  --border-light:   rgba(42, 80, 64, 0.18);
+  --border-medium:  rgba(42, 80, 64, 0.28);
+
+  --shadow-sm: 0 1px 3px rgba(27, 58, 45, 0.08);
+  --shadow-md: 0 4px 16px rgba(27, 58, 45, 0.10);
+  --shadow-lg: 0 8px 32px rgba(27, 58, 45, 0.14);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  --font-display: 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-body:    'Inter', system-ui, sans-serif;
+
+  --sidebar-width: 240px;
+  --topbar-height: 64px;
+}
+
+/* ── Reset ─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--cream-100);
+  color: var(--text-primary);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  color: var(--text-primary);
+  line-height: 1.25;
+}
+
+/* ── Layout Shell ──────────────────────────────────────── */
+.biq-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ── Sidebar ───────────────────────────────────────────── */
+.biq-sidebar {
+  width: var(--sidebar-width);
+  background: var(--green-800);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  z-index: 100;
+}
+
+.biq-sidebar-logo {
+  padding: 28px 24px 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.biq-sidebar-logo .logo-mark {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: -0.3px;
+}
+
+.biq-sidebar-logo .logo-sub {
+  font-size: 11px;
+  color: var(--green-200);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+.biq-nav {
+  flex: 1;
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.biq-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  color: var(--green-200);
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+}
+
+.biq-nav-item:hover { background: rgba(255,255,255,0.08); color: #fff; }
+.biq-nav-item.active { background: var(--green-600); color: #fff; font-weight: 500; }
+
+.biq-nav-item .nav-icon {
+  width: 18px;
+  height: 18px;
+  opacity: 0.85;
+  flex-shrink: 0;
+}
+
+.biq-sidebar-footer {
+  padding: 16px 12px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.biq-user-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+}
+
+.biq-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--green-500);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.biq-user-info .name { font-size: 13px; font-weight: 500; color: #fff; }
+.biq-user-info .role { font-size: 11px; color: var(--green-200); }
+
+.biq-logout-btn {
+  margin-top: 8px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  background: none;
+  border: 1px solid rgba(255,255,255,0.12);
+  color: var(--green-200);
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.biq-logout-btn:hover { background: rgba(255,255,255,0.08); color: #fff; }
+
+/* ── Main Content ──────────────────────────────────────── */
+.biq-main {
+  margin-left: var(--sidebar-width);
+  flex: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.biq-topbar {
+  height: var(--topbar-height);
+  background: var(--cream-50);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.biq-topbar-title {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.biq-topbar-date {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.biq-page {
+  padding: 32px;
+  max-width: 1100px;
+  width: 100%;
+}
+
+/* ── Cards ─────────────────────────────────────────────── */
+.biq-card {
+  background: var(--cream-50);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.biq-card-sm { padding: 16px 20px; }
+
+.biq-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.biq-card-title {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+/* ── Stat Cards ────────────────────────────────────────── */
+.biq-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.biq-stat {
+  background: var(--cream-50);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.biq-stat::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--stat-accent, var(--green-500));
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+
+.biq-stat-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  background: var(--stat-bg, var(--green-50));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  font-size: 18px;
+}
+
+.biq-stat-label {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.biq-stat-value {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.biq-stat-sub {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* ── Burnout Badge ─────────────────────────────────────── */
+.biq-risk-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.biq-risk-badge.high   { background: var(--coral-100); color: #C44A30; }
+.biq-risk-badge.medium { background: var(--amber-100); color: #A87012; }
+.biq-risk-badge.low    { background: var(--green-50);  color: var(--green-700); }
+
+/* ── Session Timer ─────────────────────────────────────── */
+.biq-session-card {
+  background: var(--green-800);
+  border-radius: var(--radius-lg);
+  padding: 28px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
+  box-shadow: var(--shadow-md);
+}
+
+.biq-session-left {}
+
+.biq-session-greeting {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 500;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.biq-session-sub {
+  font-size: 13px;
+  color: var(--green-200);
+}
+
+.biq-session-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.biq-breath-ring {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.biq-breath-ring::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.15);
+}
+
+.biq-breath-ring.pulsing::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid rgba(184, 217, 196, 0.5);
+  animation: breathe 3s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(0.94); opacity: 0.4; }
+  50%       { transform: scale(1.06); opacity: 0.9; }
+}
+
+.biq-timer-display {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 0.04em;
+}
+
+.biq-timer-label {
+  font-size: 11px;
+  color: var(--green-200);
+  text-align: center;
+}
+
+.biq-session-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ── Buttons ───────────────────────────────────────────── */
+.biq-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.15s, transform 0.1s;
+  white-space: nowrap;
+}
+
+.biq-btn:active { transform: scale(0.98); }
+
+.biq-btn-primary {
+  background: var(--green-500);
+  color: #fff;
+}
+.biq-btn-primary:hover { opacity: 0.88; }
+
+.biq-btn-danger {
+  background: var(--coral-100);
+  color: #C44A30;
+  border: 1px solid rgba(196,74,48,0.2);
+}
+.biq-btn-danger:hover { background: #fdddd8; }
+
+.biq-btn-ghost {
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.18);
+}
+.biq-btn-ghost:hover { background: rgba(255,255,255,0.18); }
+
+.biq-btn-outline {
+  background: transparent;
+  color: var(--green-600);
+  border: 1px solid var(--border-medium);
+}
+.biq-btn-outline:hover { background: var(--green-50); }
+
+/* ── Form Elements ─────────────────────────────────────── */
+.biq-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.biq-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.biq-input, .biq-textarea {
+  background: var(--cream-50);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--text-primary);
+  transition: border-color 0.15s, box-shadow 0.15s;
+  outline: none;
+  width: 100%;
+}
+
+.biq-input:focus, .biq-textarea:focus {
+  border-color: var(--green-500);
+  box-shadow: 0 0 0 3px rgba(74, 124, 89, 0.12);
+}
+
+.biq-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* ── Rating Slider ─────────────────────────────────────── */
+.biq-rating-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.biq-rating-row input[type=range] {
+  flex: 1;
+  appearance: none;
+  height: 5px;
+  border-radius: 3px;
+  background: var(--cream-200);
+  outline: none;
+}
+
+.biq-rating-row input[type=range]::-webkit-slider-thumb {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--green-500);
+  cursor: pointer;
+  border: 2px solid #fff;
+  box-shadow: var(--shadow-sm);
+}
+
+.biq-rating-value {
+  width: 32px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* ── Table ─────────────────────────────────────────────── */
+.biq-table-wrap {
+  overflow-x: auto;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+}
+
+.biq-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.biq-table thead th {
+  background: var(--green-50);
+  padding: 11px 16px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border-subtle);
+  white-space: nowrap;
+}
+
+.biq-table tbody td {
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  vertical-align: middle;
+}
+
+.biq-table tbody tr:last-child td { border-bottom: none; }
+.biq-table tbody tr:hover td { background: var(--green-50); }
+
+/* ── Modal Overlay ─────────────────────────────────────── */
+.biq-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(13, 43, 30, 0.45);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  padding: 16px;
+}
+
+.biq-modal {
+  background: var(--cream-50);
+  border-radius: var(--radius-xl);
+  padding: 32px;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: var(--shadow-lg);
+}
+
+.biq-modal-header {
+  margin-bottom: 24px;
+}
+
+.biq-modal-title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.biq-modal-sub {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.biq-modal-footer {
+  display: flex;
+  gap: 10px;
+  margin-top: 24px;
+  justify-content: flex-end;
+}
+
+/* ── Login Page ────────────────────────────────────────── */
+.biq-login-page {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.biq-login-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
+}
+
+.biq-login-art {
+  background: var(--green-800);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+.biq-login-form-wrap {
+  width: 100%;
+  max-width: 380px;
+}
+
+.biq-login-logo {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.biq-login-tagline {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 40px;
+}
+
+.biq-login-art-quote {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 400;
+  color: #fff;
+  text-align: center;
+  line-height: 1.4;
+  max-width: 320px;
+  z-index: 1;
+}
+
+.biq-login-art-sub {
+  font-size: 13px;
+  color: var(--green-200);
+  margin-top: 16px;
+  text-align: center;
+  z-index: 1;
+}
+
+.biq-art-circles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* ── AI Recommendations ────────────────────────────────── */
+.biq-ai-card {
+  background: linear-gradient(135deg, var(--green-800) 0%, var(--green-700) 100%);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  color: #fff;
+  margin-bottom: 28px;
+}
+
+.biq-ai-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.biq-ai-badge {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: var(--radius-full);
+  padding: 3px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--green-100);
+}
+
+.biq-ai-risk {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
+}
+
+.biq-ai-recs {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.biq-ai-recs li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--green-100);
+  line-height: 1.5;
+}
+
+.biq-ai-recs li::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green-400);
+  flex-shrink: 0;
+  margin-top: 7px;
+}
+
+/* ── Chart Section ─────────────────────────────────────── */
+.biq-section {
+  margin-bottom: 28px;
+}
+
+.biq-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.biq-section-title {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.biq-section-sub {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* ── Grid ──────────────────────────────────────────────── */
+.biq-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* ── Divider ───────────────────────────────────────────── */
+.biq-divider {
+  height: 1px;
+  background: var(--border-subtle);
+  margin: 28px 0;
+}
+
+/* ── Empty State ───────────────────────────────────────── */
+.biq-empty {
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--text-muted);
+}
+
+.biq-empty-icon {
+  font-size: 40px;
+  margin-bottom: 12px;
+  opacity: 0.5;
+}
+
+.biq-empty-text {
+  font-size: 14px;
+}
+
+/* ── High Risk Row ─────────────────────────────────────── */
+.high-risk-row td { color: #C44A30 !important; }
+
+/* ── Scrollbar ─────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 3px; }
+
+/* ── Responsive ────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .biq-sidebar { transform: translateX(-100%); }
+  .biq-main { margin-left: 0; }
+  .biq-login-page { grid-template-columns: 1fr; }
+  .biq-login-art { display: none; }
+  .biq-grid-2 { grid-template-columns: 1fr; }
+  .biq-session-card { flex-direction: column; align-items: flex-start; }
+}
